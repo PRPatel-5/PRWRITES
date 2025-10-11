@@ -2,11 +2,12 @@
 node_modules/
 
 # Build output
+node_modules/
 .next/
 out/
 dist/
 build/
-coverage/
+
 
 # Local environment variables
 .env
