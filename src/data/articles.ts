@@ -1,31 +1,33 @@
-import { Article } from '@/types';
+import { Post } from '@/types';
 
-export const mockArticles: Article[] = [
+export const mockArticles: Post[] = [
   {
     id: '1',
     title: 'The Evolution of Gaming AI: From NPCs to Neural Networks',
     slug: 'evolution-gaming-ai-npcs-neural-networks',
     category: 'Gaming',
     excerpt: 'Exploring how artificial intelligence has transformed gaming experiences, from simple scripted behaviors to sophisticated machine learning systems.',
-    imageUrl: '/api/placeholder/600/400',
-    author: 'Sarah Chen',
+    content: 'Full article content about gaming AI evolution...',
+    image: '/api/placeholder/600/400',
+    author: { name: 'Sarah Chen', avatar: '/authors/sarah.jpg' },
     publishedAt: '2024-01-15T10:00:00Z',
-    readTimeMinutes: 8,
+    readTime: '8 min read',
     tags: ['AI', 'Gaming', 'Technology', 'Machine Learning'],
-    isFeatured: true
+    featured: true
   },
   {
     id: '2',
     title: 'Hardware Review: RTX 4090 Ti - The Ultimate Gaming Beast',
     slug: 'rtx-4090-ti-ultimate-gaming-review',
-    category: 'Review',
+    category: 'Tech',
     excerpt: 'An in-depth analysis of NVIDIA\'s flagship graphics card, testing performance across 4K gaming, ray tracing, and content creation workflows.',
-    imageUrl: '/api/placeholder/600/400',
-    author: 'Marcus Rodriguez',
+    content: 'Full review content of RTX 4090 Ti...',
+    image: '/api/placeholder/600/400',
+    author: { name: 'Marcus Rodriguez', avatar: '/authors/marcus.jpg' },
     publishedAt: '2024-01-12T14:30:00Z',
-    readTimeMinutes: 12,
+    readTime: '12 min read',
     tags: ['Hardware', 'GPU', 'Gaming', 'Review'],
-    isFeatured: true
+    featured: true
   },
   {
     id: '3',
@@ -33,12 +35,13 @@ export const mockArticles: Article[] = [
     slug: 'rise-indie-gaming-small-studios-industry',
     category: 'Article',
     excerpt: 'A deep dive into the indie gaming revolution, examining how independent developers are challenging AAA dominance with innovative gameplay.',
-    imageUrl: '/api/placeholder/600/400',
-    author: 'Elena Vasquez',
+    content: 'Full article about indie gaming industry...',
+    image: '/api/placeholder/600/400',
+    author: { name: 'Elena Vasquez', avatar: '/authors/elena.jpg' },
     publishedAt: '2024-01-10T09:15:00Z',
-    readTimeMinutes: 10,
+    readTime: '10 min read',
     tags: ['Indie Games', 'Industry', 'Game Development'],
-    isFeatured: true
+    featured: true
   },
   {
     id: '4',
@@ -46,12 +49,13 @@ export const mockArticles: Article[] = [
     slug: 'major-studio-announces-vr-platform',
     category: 'News',
     excerpt: 'Industry giant reveals plans for next-generation virtual reality ecosystem, promising unprecedented immersion and cross-platform compatibility.',
-    imageUrl: '/api/placeholder/600/400',
-    author: 'David Kim',
+    content: 'Breaking news about VR platform announcement...',
+    image: '/api/placeholder/600/400',
+    author: { name: 'David Kim', avatar: '/authors/david.jpg' },
     publishedAt: '2024-01-08T16:45:00Z',
-    readTimeMinutes: 5,
+    readTime: '5 min read',
     tags: ['VR', 'News', 'Gaming Industry'],
-    isFeatured: false
+    featured: false
   },
   {
     id: '5',
@@ -59,12 +63,13 @@ export const mockArticles: Article[] = [
     slug: 'productivity-tools-content-creators-2024',
     category: 'Tech',
     excerpt: 'Comprehensive guide to the best software, hardware, and workflows for streamers, YouTubers, and digital content creators.',
-    imageUrl: '/api/placeholder/600/400',
-    author: 'Alex Thompson',
+    content: 'Complete guide to productivity tools for creators...',
+    image: '/api/placeholder/600/400',
+    author: { name: 'Alex Thompson', avatar: '/authors/alex.jpg' },
     publishedAt: '2024-01-05T11:20:00Z',
-    readTimeMinutes: 15,
+    readTime: '15 min read',
     tags: ['Productivity', 'Content Creation', 'Tools'],
-    isFeatured: false
+    featured: false
   },
   {
     id: '6',
@@ -72,12 +77,13 @@ export const mockArticles: Article[] = [
     slug: 'psychology-game-design-player-engagement',
     category: 'Blog',
     excerpt: 'Understanding the psychological principles behind addictive gameplay mechanics and how developers use them to create compelling experiences.',
-    imageUrl: '/api/placeholder/600/400',
-    author: 'Dr. Rachel Foster',
+    content: 'Deep dive into game design psychology...',
+    image: '/api/placeholder/600/400',
+    author: { name: 'Dr. Rachel Foster', avatar: '/authors/rachel.jpg' },
     publishedAt: '2024-01-03T13:00:00Z',
-    readTimeMinutes: 7,
+    readTime: '7 min read',
     tags: ['Psychology', 'Game Design', 'Player Behavior'],
-    isFeatured: false
+    featured: false
   }
 ];
 

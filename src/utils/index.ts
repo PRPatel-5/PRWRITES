@@ -1,4 +1,3 @@
-import { compareDesc, parseISO } from 'date-fns';
 import { Post } from '@/types';
 
 export const cx = (...classNames: (string | undefined | null | boolean)[]): string => 
@@ -7,7 +6,9 @@ export const cx = (...classNames: (string | undefined | null | boolean)[]): stri
 export const sortBlogs = (blogs: Post[]): Post[] => {
   return blogs
     .slice()
-    .sort((a, b) =>
-      compareDesc(parseISO(a.createdAt), parseISO(b.createdAt))
-    );
+    .sort((a, b) => {
+      const dateA = new Date(a.publishedAt);
+      const dateB = new Date(b.publishedAt);
+      return dateB.getTime() - dateA.getTime();
+    });
 };

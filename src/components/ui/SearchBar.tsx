@@ -1,54 +1,42 @@
-'use client';
-
-import React, { useState } from 'react';
+import { InputHTMLAttributes, forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
-interface SearchBarProps {
-  placeholder?: string;
-  onSearch: (query: string) => void;
-  className?: string;
+interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
+  onSearch?: (value: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  placeholder = 'Search articles...',
-  onSearch,
-  className
-}) => {
-  const [query, setQuery] = useState('');
+const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
+  ({ className, onSearch, onChange, ...props }, ref) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange?.(e);
+      onSearch?.(e.target.value);
+    };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSearch(query);
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className={cn('relative', className)}>
+    return (
       <div className="relative">
+        <svg
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
         <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={placeholder}
-          className="w-full px-4 py-2 pl-10 pr-4 text-text-dark dark:text-text-light bg-card-light dark:bg-card-dark border border-primary-gold/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold focus:border-transparent"
+          type="search"
+          className={cn(
+            'w-full pl-12 pr-6 py-3 rounded-lg border-2 border-slate-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white focus:border-gold-500 focus:outline-none transition-colors',
+            className
+          )}
+          ref={ref}
+          onChange={handleChange}
+          {...props}
         />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-          <svg
-            className="w-4 h-4 text-muted-gray"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </div>
       </div>
-    </form>
-  );
-};
+    );
+  }
+);
+
+SearchBar.displayName = 'SearchBar';
 
 export default SearchBar;

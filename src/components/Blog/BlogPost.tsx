@@ -21,9 +21,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ post, relatedPosts }) => {
             <Badge variant={post.category.toLowerCase() as any}>
               {post.category}
             </Badge>
-            <span className="text-slate text-sm">{formatDate(post.createdAt)}</span>
+            <span className="text-slate text-sm">{formatDate(post.publishedAt)}</span>
             <span className="text-slate text-sm">•</span>
-            <span className="text-slate text-sm">{post.readingTime}</span>
+            <span className="text-slate text-sm">{post.readTime}</span>
           </div>
           
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary dark:text-secondary mb-6 leading-tight">
@@ -56,7 +56,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post, relatedPosts }) => {
 
         <div className="relative h-64 md:h-96 mb-8 rounded-xl overflow-hidden">
           <Image
-            src={post.image}
+            src={post.image || '/blog/default.jpg'}
             alt={post.title}
             fill
             className="object-cover"
@@ -123,7 +123,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post, relatedPosts }) => {
               <Card key={relatedPost.id} className="group overflow-hidden">
                 <div className="relative h-40 overflow-hidden">
                   <Image
-                    src={relatedPost.image}
+                    src={relatedPost.image || '/blog/default.jpg'}
                     alt={relatedPost.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"

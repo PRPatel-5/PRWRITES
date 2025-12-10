@@ -1,20 +1,23 @@
-import { ReactNode } from 'react';
+import { HTMLAttributes, forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
-interface CardProps {
-  children: ReactNode;
-  className?: string;
-  hover?: boolean;
-}
+const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn('premium-card', className)}
+      {...props}
+    />
+  )
+);
+Card.displayName = 'Card';
 
-export default function Card({ children, className, hover = true }: CardProps) {
-  return (
-    <div className={cn(
-      'premium-card',
-      hover && 'card-hover-effect',
-      className
-    )}>
-      {children}
-    </div>
-  );
-}
+const CardContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn('p-6', className)} {...props} />
+  )
+);
+CardContent.displayName = 'CardContent';
+
+export { Card, CardContent };
+export default Card;

@@ -1,4 +1,17 @@
-import { SiteMetadata } from '@/types';
+interface SiteMetadata {
+  title: string;
+  description: string;
+  siteUrl: string;
+  socialBanner: string;
+  author: string;
+  email: string;
+  social: {
+    twitter: string;
+    github: string;
+    linkedin: string;
+    dribbble: string;
+  };
+}
 
 const siteMetadata: SiteMetadata = {
   title: 'PRWRITES',

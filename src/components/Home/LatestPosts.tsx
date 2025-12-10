@@ -35,7 +35,7 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts }) => {
           <Card key={post.id} className="group overflow-hidden">
             <div className="relative h-48 overflow-hidden">
               <Image
-                src={post.image}
+                src={post.image || '/blog/default.jpg'}
                 alt={post.title}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -48,9 +48,9 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts }) => {
             </div>
             <CardContent className="p-6">
               <div className="flex items-center text-sm text-slate mb-3">
-                <span>{formatDate(post.createdAt)}</span>
+                <span>{formatDate(post.publishedAt)}</span>
                 <span className="mx-2">•</span>
-                <span>{post.readingTime}</span>
+                <span>{post.readTime}</span>
               </div>
               <h3 className="text-lg font-bold text-primary dark:text-secondary mb-3 group-hover:text-accent transition-colors line-clamp-2">
                 <Link href={`/blog/${post.slug}`}>

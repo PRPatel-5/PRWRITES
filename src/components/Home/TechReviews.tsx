@@ -6,7 +6,7 @@ import { mockArticles } from '@/data/articles';
 
 const TechReviews: React.FC = () => {
   const techArticles = mockArticles.filter(article => 
-    article.category === 'Tech' || article.category === 'Review'
+    article.category === 'Tech' || article.category === 'Gaming'
   );
 
   return (
@@ -26,7 +26,7 @@ const TechReviews: React.FC = () => {
           {techArticles.map((article) => (
             <div key={article.id} className="relative">
               <ArticleCard article={article} />
-              {article.category === 'Review' && (
+              {article.category === 'Tech' && (
                 <div className="absolute top-4 right-4 bg-primary-gold text-primary-navy px-2 py-1 rounded text-xs font-bold flex items-center gap-1">
                   <span>★</span>
                   <span>4.8</span>
