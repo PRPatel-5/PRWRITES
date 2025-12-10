@@ -1,63 +1,20 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface CardProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   hover?: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ children, className, hover = true }) => {
+export default function Card({ children, className, hover = true }: CardProps) {
   return (
-    <div
-      className={cn(
-        'bg-secondary dark:bg-charcoal rounded-xl border border-slate/20 shadow-sm',
-        hover && 'hover:shadow-lg hover:scale-[1.02] transition-all duration-300',
-        className
-      )}
-    >
+    <div className={cn(
+      'premium-card',
+      hover && 'card-hover-effect',
+      className
+    )}>
       {children}
     </div>
   );
-};
-
-interface CardHeaderProps {
-  children: React.ReactNode;
-  className?: string;
 }
-
-const CardHeader: React.FC<CardHeaderProps> = ({ children, className }) => {
-  return (
-    <div className={cn('p-6 pb-4', className)}>
-      {children}
-    </div>
-  );
-};
-
-interface CardContentProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-const CardContent: React.FC<CardContentProps> = ({ children, className }) => {
-  return (
-    <div className={cn('px-6 pb-6', className)}>
-      {children}
-    </div>
-  );
-};
-
-interface CardFooterProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-const CardFooter: React.FC<CardFooterProps> = ({ children, className }) => {
-  return (
-    <div className={cn('px-6 py-4 border-t border-slate/20', className)}>
-      {children}
-    </div>
-  );
-};
-
-export { Card, CardHeader, CardContent, CardFooter };

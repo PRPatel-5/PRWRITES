@@ -1,50 +1,53 @@
-export interface Article {
+export interface Post {
   id: string;
   title: string;
-  slug: string;
-  category: 'Article' | 'Blog' | 'Gaming' | 'News' | 'Review' | 'Tech';
   excerpt: string;
-  imageUrl: string;
-  author: string;
-  publishedAt: string;
-  readTimeMinutes: number;
+  content: string;
+  slug: string;
+  category: 'Blog' | 'Gaming' | 'Tech' | 'News' | 'Article';
   tags: string[];
-  isFeatured?: boolean;
-  content?: string;
+  author: {
+    name: string;
+    avatar?: string;
+    bio?: string;
+  };
+  publishedAt: string;
+  updatedAt?: string;
+  readTime: string;
+  featured: boolean;
+  image?: string;
+  seo?: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
 }
 
 export interface Category {
   name: string;
   slug: string;
   description: string;
+  icon: string;
+  color: string;
   count: number;
-  color?: string;
 }
 
-export interface SiteMetadata {
-  title: string;
-  description: string;
-  siteUrl: string;
-  socialBanner: string;
-  author: string;
+export interface Author {
+  id: string;
+  name: string;
   email: string;
-  social: {
-    twitter: string;
-    github: string;
-    linkedin: string;
-    instagram?: string;
-    youtube?: string;
+  avatar?: string;
+  bio?: string;
+  social?: {
+    twitter?: string;
+    linkedin?: string;
+    github?: string;
   };
 }
 
-export interface ThemeContextType {
-  mode: 'light' | 'dark';
-  setMode: (mode: 'light' | 'dark') => void;
-}
-
-export interface ContactFormData {
+export interface ContactForm {
   name: string;
   email: string;
+  subject: string;
   message: string;
-  topic: 'General' | 'Business' | 'Collaboration';
 }

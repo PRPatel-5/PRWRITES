@@ -1,179 +1,129 @@
-import React from 'react';
-import { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
-import { dummyPosts } from '@/data/posts';
-import { Card, CardContent } from '@/components/ui/Card';
-import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
-import { formatDate } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  title: 'Gaming News',
-  description: 'Latest gaming news, reviews, and insights from the world of video games.',
-};
+const gamingNews = [
+  {
+    id: 1,
+    title: 'Top 10 Most Anticipated Games of 2025',
+    excerpt: 'From AAA blockbusters to innovative indies, here are the games everyone is talking about',
+    platform: 'Multi-platform',
+    date: 'March 15, 2024',
+  },
+  {
+    id: 2,
+    title: 'PlayStation 6 Rumors: What We Know So Far',
+    excerpt: 'Industry insiders hint at groundbreaking features for the next generation console',
+    platform: 'PlayStation',
+    date: 'March 14, 2024',
+  },
+  {
+    id: 3,
+    title: 'Xbox Game Pass Gets Major Expansion',
+    excerpt: 'Microsoft announces 50+ new titles coming to the subscription service',
+    platform: 'Xbox',
+    date: 'March 13, 2024',
+  },
+];
+
+const platforms = [
+  { name: 'PC', icon: '💻', color: 'from-blue-500 to-cyan-500' },
+  { name: 'PlayStation', icon: '🎮', color: 'from-blue-600 to-blue-800' },
+  { name: 'Xbox', icon: '🎯', color: 'from-green-500 to-green-700' },
+  { name: 'Nintendo', icon: '🔴', color: 'from-red-500 to-pink-500' },
+  { name: 'Mobile', icon: '📱', color: 'from-purple-500 to-indigo-500' },
+  { name: 'VR', icon: '🥽', color: 'from-orange-500 to-red-500' },
+];
 
 export default function GamingPage() {
-  const gamingPosts = dummyPosts.filter(post => post.category === 'Gaming');
-  const featuredGaming = gamingPosts.filter(post => post.isFeatured);
-  const latestGaming = gamingPosts.slice(0, 6);
-
   return (
-    <div className="min-h-screen py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary dark:text-secondary mb-4">
-            Gaming News
+    <div className="min-h-screen">
+      {/* Gaming Hero */}
+      <section className="relative hero-gradient py-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-gold-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-block mb-6 animate-float">
+            <span className="text-7xl">🎮</span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            Gaming <span className="text-gold-400">News</span>
           </h1>
-          <p className="text-slate text-lg max-w-2xl mx-auto">
-            Stay updated with the latest gaming news, reviews, and industry insights
+          <p className="text-xl text-slate-200 max-w-2xl mx-auto">
+            Latest updates, reviews, and insights from the gaming world
           </p>
         </div>
+      </section>
 
-        {/* Top Gaming Headlines */}
-        {featuredGaming.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary dark:text-secondary mb-8">
-              Top Gaming Headlines
-            </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {featuredGaming.slice(0, 2).map((post) => (
-                <Card key={post.id} className="group overflow-hidden">
-                  <div className="relative h-64 overflow-hidden">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <Badge variant="gaming">Gaming</Badge>
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="flex items-center text-sm text-slate mb-3">
-                      <span>{formatDate(post.createdAt)}</span>
-                      <span className="mx-2">•</span>
-                      <span>{post.readingTime}</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-primary dark:text-secondary mb-3 group-hover:text-accent transition-colors">
-                      <Link href={`/blog/${post.slug}`}>
-                        {post.title}
-                      </Link>
-                    </h3>
-                    <p className="text-slate mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="inline-flex items-center text-accent hover:text-accent/80 font-medium"
-                    >
-                      Read More
-                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
-        )}
+      {/* Trending Games */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 className="text-4xl font-bold gradient-text mb-8">Trending Now</h2>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {gamingNews.map((news) => (
+            <article
+              key={news.id}
+              className="premium-card overflow-hidden card-hover-effect group"
+            >
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-purple-600 to-pink-600">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute top-4 left-4 z-10">
+                  <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-semibold text-purple-600">
+                    {news.platform}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="p-6 space-y-4">
+                <p className="text-sm text-slate-500 dark:text-slate-400">{news.date}</p>
+                
+                <h3 className="text-xl font-bold text-navy-600 dark:text-slate-200 group-hover:text-gold-600 transition-colors line-clamp-2">
+                  {news.title}
+                </h3>
+                
+                <p className="text-slate-600 dark:text-slate-400 line-clamp-2">
+                  {news.excerpt}
+                </p>
+                
+                <Link
+                  href={`/blog/${news.id}`}
+                  className="inline-flex items-center text-navy-600 dark:text-slate-300 font-semibold hover:text-gold-600 transition-colors"
+                >
+                  Read More
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
-        {/* Platform Tags Section */}
-        <section className="mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold text-primary dark:text-secondary mb-8">
+      {/* Platform Categories */}
+      <section className="bg-gradient-to-b from-white to-cream-100 dark:from-slate-900 dark:to-slate-800 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold gradient-text mb-12 text-center">
             Browse by Platform
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {['PC', 'PlayStation', 'Xbox', 'Nintendo', 'Mobile', 'VR', 'Indie', 'AAA'].map((platform) => (
-              <Card key={platform} className="group text-center cursor-pointer">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-primary dark:text-secondary group-hover:text-accent transition-colors">
-                    {platform}
-                  </h3>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Latest Gaming News */}
-        <section className="mb-16">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary dark:text-secondary">
-              Latest Gaming News
-            </h2>
-            <Link href="/blog?category=gaming">
-              <Button variant="outline">View All Gaming</Button>
-            </Link>
-          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {latestGaming.map((post) => (
-              <Card key={post.id} className="group overflow-hidden">
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <Badge variant="gaming">Gaming</Badge>
-                  </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {platforms.map((platform) => (
+              <Link
+                key={platform.name}
+                href={`/gaming?platform=${platform.name.toLowerCase()}`}
+                className="premium-card p-6 text-center card-hover-effect group"
+              >
+                <div className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br ${platform.color} rounded-2xl flex items-center justify-center text-3xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
+                  {platform.icon}
                 </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center text-sm text-slate mb-3">
-                    <span>{formatDate(post.createdAt)}</span>
-                    <span className="mx-2">•</span>
-                    <span>{post.readingTime}</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-primary dark:text-secondary mb-3 group-hover:text-accent transition-colors line-clamp-2">
-                    <Link href={`/blog/${post.slug}`}>
-                      {post.title}
-                    </Link>
-                  </h3>
-                  <p className="text-slate text-sm line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                </CardContent>
-              </Card>
+                <h3 className="text-lg font-bold text-navy-600 dark:text-slate-200">{platform.name}</h3>
+              </Link>
             ))}
           </div>
-        </section>
-
-        {/* Upcoming Releases */}
-        <section>
-          <h2 className="text-2xl md:text-3xl font-bold text-primary dark:text-secondary mb-8">
-            Upcoming Releases
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'Game Title 1', date: '2024-03-15', platform: 'PC, PS5' },
-              { title: 'Game Title 2', date: '2024-04-20', platform: 'Xbox, PC' },
-              { title: 'Game Title 3', date: '2024-05-10', platform: 'Nintendo Switch' },
-              { title: 'Game Title 4', date: '2024-06-05', platform: 'Multi-platform' }
-            ].map((game, index) => (
-              <Card key={index} className="text-center">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-accent/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M15 14h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-primary dark:text-secondary mb-2">
-                    {game.title}
-                  </h3>
-                  <p className="text-slate text-sm mb-1">{game.date}</p>
-                  <p className="text-slate text-xs">{game.platform}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }
