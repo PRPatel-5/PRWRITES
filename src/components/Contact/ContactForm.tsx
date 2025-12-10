@@ -1,20 +1,33 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ContactFormData } from '@/types';
 import Button from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 
+// Local type for this form only
+type ContactFormValues = {
+  name: string;
+  email: string;
+  subject: string;
+  topic: string;
+  message: string;
+};
+
+const initialFormValues: ContactFormValues = {
+  name: '',
+  email: '',
+  subject: '',
+  topic: 'general',
+  message: '',
+};
+
 const ContactForm: React.FC = () => {
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    message: '',
-    topic: 'general'
-  });
+  const [formData, setFormData] = useState<ContactFormValues>(initialFormValues);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [errors, setErrors] = useState<Partial<ContactFormData>>({});
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>(
+    'idle'
+  );
+  const [errors, setErrors] = useState<Partial<ContactFormValues>>({});
 
   const topics = [
     { value: 'general', label: 'General Inquiry' },
@@ -22,11 +35,11 @@ const ContactForm: React.FC = () => {
     { value: 'guest-post', label: 'Guest Post' },
     { value: 'feedback', label: 'Feedback' },
     { value: 'technical', label: 'Technical Issue' },
-    { value: 'other', label: 'Other' }
+    { value: 'other', label: 'Other' },
   ];
 
   const validateForm = (): boolean => {
-    const newErrors: Partial<ContactFormData> = {};
+    const newErrors: Partial<ContactFormValues> = {};
 
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
@@ -36,6 +49,10 @@ const ContactForm: React.FC = () => {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject is required';
     }
 
     if (!formData.message.trim()) {
@@ -50,37 +67,41 @@ const ContactForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
+
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // In a real app, you would send the data to your backend
+      // TODO: Replace with your real API endpoint
+      // await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) });
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log('Form submitted:', formData);
-      
+
       setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '', topic: 'general' });
+      setFormData(initialFormValues);
     } catch (error) {
+      console.error(error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Clear error when user starts typing
-    if (errors[name as keyof ContactFormData]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof ContactFormValues]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
 
@@ -88,7 +109,10 @@ const ContactForm: React.FC = () => {
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-primary dark:text-secondary mb-2">
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-primary dark:text-secondary mb-2"
+        >
           Name *
         </label>
         <input
@@ -110,7 +134,10 @@ const ContactForm: React.FC = () => {
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-primary dark:text-secondary mb-2">
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-primary dark:text-secondary mb-2"
+        >
           Email *
         </label>
         <input
@@ -130,9 +157,37 @@ const ContactForm: React.FC = () => {
         )}
       </div>
 
+      {/* Subject */}
+      <div>
+        <label
+          htmlFor="subject"
+          className="block text-sm font-medium text-primary dark:text-secondary mb-2"
+        >
+          Subject *
+        </label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          value={formData.subject}
+          onChange={handleChange}
+          className={cn(
+            'w-full px-4 py-3 border rounded-lg bg-secondary dark:bg-charcoal text-primary dark:text-secondary focus:outline-none focus:ring-2 focus:ring-accent transition-colors',
+            errors.subject ? 'border-red-500' : 'border-slate/20'
+          )}
+          placeholder="What is this about?"
+        />
+        {errors.subject && (
+          <p className="mt-1 text-sm text-red-500">{errors.subject}</p>
+        )}
+      </div>
+
       {/* Topic */}
       <div>
-        <label htmlFor="topic" className="block text-sm font-medium text-primary dark:text-secondary mb-2">
+        <label
+          htmlFor="topic"
+          className="block text-sm font-medium text-primary dark:text-secondary mb-2"
+        >
           Topic
         </label>
         <select
@@ -152,7 +207,10 @@ const ContactForm: React.FC = () => {
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-primary dark:text-secondary mb-2">
+        <label
+          htmlFor="message"
+          className="block text-sm font-medium text-primary dark:text-secondary mb-2"
+        >
           Message *
         </label>
         <textarea
@@ -173,11 +231,7 @@ const ContactForm: React.FC = () => {
       </div>
 
       {/* Submit Button */}
-      <Button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full"
-      >
+      <Button type="submit" disabled={isSubmitting} className="w-full">
         {isSubmitting ? 'Sending...' : 'Send Message'}
       </Button>
 
@@ -185,7 +239,8 @@ const ContactForm: React.FC = () => {
       {submitStatus === 'success' && (
         <div className="p-4 bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg">
           <p className="text-green-800 dark:text-green-200 text-sm">
-            Thank you for your message! We'll get back to you within 24 hours.
+            Thank you for your message! We&apos;ll get back to you within 24
+            hours.
           </p>
         </div>
       )}

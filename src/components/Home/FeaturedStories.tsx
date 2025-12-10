@@ -3,7 +3,7 @@ import ArticleCard from '@/components/ui/ArticleCard';
 import { mockArticles } from '@/data/articles';
 
 const FeaturedStories: React.FC = () => {
-  const featuredArticles = mockArticles.filter(article => article.isFeatured);
+  const featuredArticles = mockArticles.filter(article => article.featured);
 
   return (
     <section className="py-16 bg-gradient-light dark:bg-gradient-dark">

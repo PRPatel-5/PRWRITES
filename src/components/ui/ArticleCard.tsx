@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Article } from '@/types';
+import { Post } from '@/types';
 import { cn } from '@/lib/utils';
 
 interface ArticleCardProps {
-  article: Article;
+  article: Post;
   variant?: 'default' | 'featured' | 'compact';
   className?: string;
 }
@@ -44,7 +44,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
         )}>
           <div className="relative h-64 overflow-hidden">
             <Image
-              src={article.imageUrl}
+              src={article.image || '/blog/default.jpg'}
               alt={article.title}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -59,9 +59,9 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
             <div className="flex items-center text-sm text-muted-gray mb-3">
               <span>{formatDate(article.publishedAt)}</span>
               <span className="mx-2">•</span>
-              <span>{article.readTimeMinutes} min read</span>
+              <span>{article.readTime}</span>
               <span className="mx-2">•</span>
-              <span>{article.author}</span>
+              <span>{article.author.name}</span>
             </div>
             <h3 className="font-heading text-xl font-semibold text-text-dark dark:text-text-light mb-3 group-hover:text-primary-gold transition-colors line-clamp-2">
               {article.title}
@@ -70,7 +70,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
               {article.excerpt}
             </p>
             <div className="flex flex-wrap gap-2">
-              {article.tags.slice(0, 3).map((tag) => (
+              {article.tags?.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
                   className="text-xs px-2 py-1 bg-primary-gold/10 text-primary-gold rounded-full"
@@ -93,7 +93,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
       )}>
         <div className="relative h-48 overflow-hidden">
           <Image
-            src={article.imageUrl}
+            src={article.image || '/blog/default.jpg'}
             alt={article.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -108,7 +108,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
           <div className="flex items-center text-xs text-muted-gray mb-2">
             <span>{formatDate(article.publishedAt)}</span>
             <span className="mx-2">•</span>
-            <span>{article.readTimeMinutes} min</span>
+            <span>{article.readTime}</span>
           </div>
           <h3 className="font-heading text-lg font-semibold text-text-dark dark:text-text-light mb-2 group-hover:text-primary-gold transition-colors line-clamp-2">
             {article.title}
@@ -117,7 +117,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
             {article.excerpt}
           </p>
           <div className="text-xs text-muted-gray">
-            By {article.author}
+            By {article.author.name}
           </div>
         </div>
       </article>

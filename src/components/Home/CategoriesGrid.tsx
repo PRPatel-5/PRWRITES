@@ -1,7 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/Card';
-import { categories } from '@/data/posts';
+// Categories are defined inline in this component
+const categories = [
+  { name: 'Gaming', slug: 'gaming', count: 45, color: 'from-purple-500 to-pink-500', description: 'Latest gaming news and reviews' },
+  { name: 'Technology', slug: 'tech', count: 62, color: 'from-blue-500 to-cyan-500', description: 'Tech trends and innovations' },
+  { name: 'News', slug: 'news', count: 38, color: 'from-green-500 to-emerald-500', description: 'Breaking news and updates' },
+  { name: 'Articles', slug: 'article', count: 54, color: 'from-orange-500 to-red-500', description: 'In-depth articles and analysis' },
+];
 
 const categoryIcons = {
   blog: (
