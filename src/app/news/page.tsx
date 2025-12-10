@@ -1,167 +1,163 @@
-import React from 'react';
-import { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
-import { dummyPosts } from '@/data/posts';
-import { Card, CardContent } from '@/components/ui/Card';
-import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
-import { formatDate } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  title: 'News',
-  description: 'Latest tech news, industry updates, and breaking stories from the digital world.',
-};
+const breakingNews = [
+  {
+    id: 1,
+    title: 'Major Tech Company Announces Groundbreaking AI Innovation',
+    excerpt: 'Revolutionary artificial intelligence system promises to transform multiple industries',
+    category: 'Tech',
+    date: '2 hours ago',
+  },
+  {
+    id: 2,
+    title: 'Global Gaming Conference Reveals Industry Trends',
+    excerpt: 'Industry leaders gather to discuss the future of interactive entertainment',
+    category: 'Gaming',
+    date: '5 hours ago',
+  },
+];
+
+const latestNews = [
+  {
+    id: 3,
+    title: 'New Streaming Platform Launches with Exclusive Content',
+    excerpt: 'Entertainment giant enters the streaming wars with innovative features',
+    category: 'Entertainment',
+    date: '1 day ago',
+  },
+  {
+    id: 4,
+    title: 'Cybersecurity Alert: Major Data Breach Discovered',
+    excerpt: 'Security researchers uncover vulnerability affecting millions of users',
+    category: 'Security',
+    date: '1 day ago',
+  },
+  {
+    id: 5,
+    title: 'Space Exploration Milestone Achieved',
+    excerpt: 'Historic achievement marks new era in commercial space travel',
+    category: 'Science',
+    date: '2 days ago',
+  },
+];
+
+const categories = [
+  { name: 'Technology', icon: '💻', count: 45 },
+  { name: 'Gaming', icon: '🎮', count: 38 },
+  { name: 'Science', icon: '🔬', count: 32 },
+  { name: 'Business', icon: '💼', count: 28 },
+  { name: 'Entertainment', icon: '🎬', count: 24 },
+  { name: 'Security', icon: '🔒', count: 20 },
+];
 
 export default function NewsPage() {
-  const newsPosts = dummyPosts.filter(post => post.category === 'News' || post.category === 'Tech');
-  const breakingNews = newsPosts.slice(0, 1);
-  const latestNews = newsPosts.slice(1, 7);
-
   return (
-    <div className="min-h-screen py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary dark:text-secondary mb-4">
-            Latest News
+    <div className="min-h-screen bg-gradient-to-b from-cream-100 to-white dark:from-slate-900 dark:to-slate-800">
+      {/* Hero */}
+      <section className="hero-gradient py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-block mb-6">
+            <span className="text-7xl">📰</span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            Latest <span className="text-gold-400">News</span>
           </h1>
-          <p className="text-slate text-lg max-w-2xl mx-auto">
-            Stay informed with breaking news, tech updates, and industry insights
+          <p className="text-xl text-slate-200 max-w-2xl mx-auto">
+            Stay informed with breaking news and industry updates
           </p>
         </div>
+      </section>
 
-        {/* Breaking News */}
-        {breakingNews.length > 0 && (
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded-full animate-pulse">
-                BREAKING
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-primary dark:text-secondary">
-                Breaking News
-              </h2>
-            </div>
-            
-            {breakingNews.map((post) => (
-              <Card key={post.id} className="group overflow-hidden">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                  <div className="relative h-64 lg:h-auto overflow-hidden">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardContent className="p-8 flex flex-col justify-center">
-                    <div className="flex items-center gap-4 mb-4">
-                      <Badge variant="news">Breaking</Badge>
-                      <span className="text-slate text-sm">{formatDate(post.createdAt)}</span>
-                    </div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-primary dark:text-secondary mb-4 group-hover:text-accent transition-colors">
-                      <Link href={`/blog/${post.slug}`}>
-                        {post.title}
-                      </Link>
-                    </h3>
-                    <p className="text-slate mb-6 text-lg">
-                      {post.excerpt}
-                    </p>
-                    <Link href={`/blog/${post.slug}`}>
-                      <Button>Read Full Story</Button>
-                    </Link>
-                  </CardContent>
-                </div>
-              </Card>
-            ))}
-          </section>
-        )}
-
-        {/* News Categories */}
-        <section className="mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold text-primary dark:text-secondary mb-8">
-            News Categories
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { name: 'Tech', icon: '💻', count: 24 },
-              { name: 'AI & ML', icon: '🤖', count: 18 },
-              { name: 'Startups', icon: '🚀', count: 15 },
-              { name: 'Crypto', icon: '₿', count: 12 },
-              { name: 'Mobile', icon: '📱', count: 20 },
-              { name: 'Web Dev', icon: '🌐', count: 16 },
-              { name: 'Security', icon: '🔒', count: 14 },
-              { name: 'Cloud', icon: '☁️', count: 11 }
-            ].map((category) => (
-              <Card key={category.name} className="group text-center cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="text-2xl mb-2">{category.icon}</div>
-                  <h3 className="font-semibold text-primary dark:text-secondary group-hover:text-accent transition-colors mb-1">
-                    {category.name}
-                  </h3>
-                  <p className="text-slate text-sm">{category.count} articles</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Latest News */}
-        <section>
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary dark:text-secondary">
-              Latest Updates
-            </h2>
-            <Link href="/blog?category=news">
-              <Button variant="outline">View All News</Button>
-            </Link>
+      {/* Breaking News */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 mb-16">
+        <div className="bg-gradient-to-r from-red-500 to-orange-500 rounded-xl p-8 text-white shadow-2xl">
+          <div className="flex items-center space-x-2 mb-6">
+            <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-bold animate-pulse">
+              🔴 BREAKING NEWS
+            </span>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {latestNews.map((post) => (
-              <Card key={post.id} className="group overflow-hidden">
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <Badge variant={post.category.toLowerCase() as any}>
-                      {post.category}
-                    </Badge>
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center text-sm text-slate mb-3">
-                    <span>{formatDate(post.createdAt)}</span>
-                    <span className="mx-2">•</span>
-                    <span>{post.readingTime}</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-primary dark:text-secondary mb-3 group-hover:text-accent transition-colors line-clamp-2">
-                    <Link href={`/blog/${post.slug}`}>
-                      {post.title}
-                    </Link>
-                  </h3>
-                  <p className="text-slate text-sm line-clamp-3 mb-4">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags.slice(0, 2).map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs px-2 py-1 bg-slate/10 text-slate rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+          <div className="grid md:grid-cols-2 gap-8">
+            {breakingNews.map((news) => (
+              <Link
+                key={news.id}
+                href={`/blog/${news.id}`}
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all duration-300 border border-white/20"
+              >
+                <p className="text-sm text-gold-300 mb-2">{news.date}</p>
+                <h3 className="text-2xl font-bold mb-3">{news.title}</h3>
+                <p className="text-slate-200">{news.excerpt}</p>
+              </Link>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="grid lg:grid-cols-3 gap-12">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-8">
+            <h2 className="text-3xl font-bold gradient-text">Latest Updates</h2>
+            
+            {latestNews.map((news) => (
+              <article key={news.id} className="premium-card p-6 card-hover-effect group">
+                <div className="flex items-start space-x-6">
+                  <div className="w-32 h-32 rounded-lg bg-gradient-to-br from-navy-500 to-navy-700 flex-shrink-0" />
+                  
+                  <div className="flex-1 space-y-3">
+                    <div className="flex items-center space-x-3">
+                      <span className="px-3 py-1 bg-navy-500 text-white rounded-full text-sm font-semibold">
+                        {news.category}
+                      </span>
+                      <span className="text-sm text-slate-500 dark:text-slate-400">{news.date}</span>
+                    </div>
+                    
+                    <h3 className="text-2xl font-bold text-navy-600 dark:text-slate-200 group-hover:text-gold-600 transition-colors">
+                      {news.title}
+                    </h3>
+                    
+                    <p className="text-slate-600 dark:text-slate-400">{news.excerpt}</p>
+                    
+                    <Link
+                      href={`/blog/${news.id}`}
+                      className="inline-flex items-center text-navy-600 dark:text-slate-300 font-semibold hover:text-gold-600 transition-colors"
+                    >
+                      Read Full Story
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-8">
+            {/* Categories */}
+            <div className="premium-card p-6">
+              <h3 className="text-2xl font-bold gradient-text mb-6">Categories</h3>
+              <div className="space-y-3">
+                {categories.map((category) => (
+                  <Link
+                    key={category.name}
+                    href={`/news?category=${category.name.toLowerCase()}`}
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-navy-50 dark:hover:bg-slate-700 transition-colors group"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <span className="text-2xl">{category.icon}</span>
+                      <span className="font-semibold text-navy-600 dark:text-slate-300 group-hover:text-gold-600 transition-colors">
+                        {category.name}
+                      </span>
+                    </div>
+                    <span className="text-slate-500 dark:text-slate-400 text-sm">{category.count}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

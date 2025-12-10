@@ -1,104 +1,152 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
 import ThemeToggle from '@/components/ui/ThemeToggle';
-import SearchBar from '@/components/ui/SearchBar';
+import Image from "next/image";
 
-const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const navLinks = [
+  { name: 'Home', path: '/' },
+  { name: 'Blog', path: '/blog' },
+  { name: 'Gaming', path: '/gaming' },
+  { name: 'News', path: '/news' },
+  { name: 'About', path: '/about' },
+  { name: 'Contact', path: '/contact' },
+];
+
+export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Articles', href: '/articles' },
-    { name: 'Gaming News', href: '/gaming' },
-    { name: 'Tech & Reviews', href: '/tech' },
-    { name: 'News', href: '/news' },
-    { name: 'About', href: '/about' }
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-light/95 dark:bg-gradient-navy/95 backdrop-blur-sm border-b border-primary-gold/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <Image
-              src="/logo.png"
-              alt="PRWRITES Logo"
-              width={180}
-              height={48}
-              priority
-            />
-          </Link>
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-premium'
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-3 group">
+                <Image
+                  src="/logo.png"         // or "/images/logo.png" 
+                  alt="PRWRITES Logo"
+                  width={200}
+                  height={160}
+                  priority
+                />
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            <SearchBar onSearch={() => {}} className="w-64" />
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={cn(
-                  'text-sm font-medium transition-colors duration-200',
-                  pathname === item.href
-                    ? 'text-primary-gold border-b-2 border-primary-gold'
-                    : 'text-primary-navy dark:text-text-light hover:text-primary-gold hover:border-b-2 hover:border-primary-gold transition-all duration-200'
-                )}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <ThemeToggle />
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <ThemeToggle />
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-primary-navy dark:text-text-light hover:text-primary-gold transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {isOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-4 border-t border-slate/20">
-            <div className="flex flex-col space-y-3">
-              {navigation.map((item) => (
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-1">
+              {navLinks.map((link) => (
                 <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                    'text-sm font-medium transition-colors duration-200 px-2 py-1',
-                    pathname === item.href
-                      ? 'text-accent'
-                      : 'text-primary dark:text-secondary hover:text-accent'
-                  )}
+                  key={link.path}
+                  href={link.path}
+                  className={`relative px-4 py-2 rounded-lg font-medium transition-all duration-300 group ${
+                    pathname === link.path
+                      ? 'text-navy-600 dark:text-gold-400'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-navy-600 dark:hover:text-gold-400'
+                  }`}
                 >
-                  {item.name}
+                  {link.name}
+                  <span
+                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-navy-500 to-gold-500 transform origin-left transition-transform duration-300 ${
+                      pathname === link.path
+                        ? 'scale-x-100'
+                        : 'scale-x-0 group-hover:scale-x-100'
+                    }`}
+                  />
                 </Link>
               ))}
             </div>
-          </div>
-        )}
-      </div>
-    </nav>
-  );
-};
 
-export default Navbar;
+            {/* Theme Toggle & CTA Button - Desktop */}
+            <div className="hidden md:flex items-center space-x-4">
+              <ThemeToggle />
+              <Link
+                href="/contact"
+                className="btn-premium shine-effect"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            {/* Mobile Theme Toggle & Menu Button */}
+            <div className="md:hidden flex items-center space-x-2">
+              <ThemeToggle />
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-lg hover:bg-navy-50 dark:hover:bg-slate-700 transition-colors"
+                aria-label="Toggle menu"
+              >
+              <svg
+                className="w-6 h-6 text-navy-600 dark:text-slate-300"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {isMobileMenuOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+            isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="px-4 pt-2 pb-6 space-y-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                href={link.path}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+                  pathname === link.path
+                    ? 'bg-gradient-to-r from-navy-500 to-gold-500 text-white shadow-lg'
+                    : 'text-slate-700 dark:text-slate-300 hover:bg-navy-50 dark:hover:bg-slate-700'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <Link
+              href="/contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block btn-gold text-center mt-4"
+            >
+              Get Started
+            </Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* Spacer */}
+      <div className="h-20" />
+    </>
+  );
+}
