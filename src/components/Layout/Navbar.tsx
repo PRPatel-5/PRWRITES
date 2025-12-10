@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import SearchBar from '@/components/ui/SearchBar';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,15 +14,15 @@ const Navbar: React.FC = () => {
 
   const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Gaming', href: '/gaming' },
+    { name: 'Articles', href: '/articles' },
+    { name: 'Gaming News', href: '/gaming' },
+    { name: 'Tech & Reviews', href: '/tech' },
     { name: 'News', href: '/news' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' }
+    { name: 'About', href: '/about' }
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 dark:bg-primary/95 backdrop-blur-sm border-b border-slate/20">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-light/95 dark:bg-gradient-navy/95 backdrop-blur-sm border-b border-primary-gold/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
@@ -29,14 +30,15 @@ const Navbar: React.FC = () => {
             <Image
               src="/logo.png"
               alt="PRWRITES Logo"
-              width={240}
-              height={150}
+              width={180}
+              height={48}
               priority
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
+            <SearchBar onSearch={() => {}} className="w-64" />
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -44,8 +46,8 @@ const Navbar: React.FC = () => {
                 className={cn(
                   'text-sm font-medium transition-colors duration-200',
                   pathname === item.href
-                    ? 'text-accent'
-                    : 'text-primary dark:text-secondary hover:text-accent'
+                    ? 'text-primary-gold border-b-2 border-primary-gold'
+                    : 'text-primary-navy dark:text-text-light hover:text-primary-gold hover:border-b-2 hover:border-primary-gold transition-all duration-200'
                 )}
               >
                 {item.name}
@@ -59,7 +61,7 @@ const Navbar: React.FC = () => {
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-primary dark:text-secondary hover:text-accent transition-colors"
+              className="text-primary-navy dark:text-text-light hover:text-primary-gold transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isOpen ? (

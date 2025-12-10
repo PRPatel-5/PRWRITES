@@ -1,5 +1,5 @@
 import './globals.css';
-import { Inter, Manrope } from 'next/font/google';
+import { Inter, Poppins } from 'next/font/google';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import Navbar from '@/components/Layout/Navbar';
@@ -10,13 +10,14 @@ import { cn } from '@/lib/utils';
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-in',
+  variable: '--font-body',
 });
 
-const manrope = Manrope({
+const poppins = Poppins({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
-  variable: '--font-mr',
+  variable: '--font-heading',
 });
 
 export const metadata: Metadata = {
@@ -64,8 +65,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body
         className={cn(
           inter.variable,
-          manrope.variable,
-          'font-mr bg-cream dark:bg-charcoal text-primary dark:text-secondary'
+          poppins.variable,
+          'font-body bg-gradient-light dark:bg-gradient-dark text-text-dark dark:text-text-light'
         )}
       >
         <Script id="theme-switcher" strategy="beforeInteractive">

@@ -1,21 +1,16 @@
-export interface Post {
+export interface Article {
   id: string;
-  slug: string;
   title: string;
+  slug: string;
+  category: 'Article' | 'Blog' | 'Gaming' | 'News' | 'Review' | 'Tech';
   excerpt: string;
-  content: string;
-  category: 'Blog' | 'Gaming' | 'News' | 'Tech' | 'Article';
+  imageUrl: string;
+  author: string;
+  publishedAt: string;
+  readTimeMinutes: number;
   tags: string[];
-  createdAt: string;
-  updatedAt?: string;
-  image: string;
-  isFeatured: boolean;
-  isPublished: boolean;
-  readingTime: string;
-  author: {
-    name: string;
-    avatar?: string;
-  };
+  isFeatured?: boolean;
+  content?: string;
 }
 
 export interface Category {
@@ -23,6 +18,7 @@ export interface Category {
   slug: string;
   description: string;
   count: number;
+  color?: string;
 }
 
 export interface SiteMetadata {
@@ -36,7 +32,8 @@ export interface SiteMetadata {
     twitter: string;
     github: string;
     linkedin: string;
-    dribbble?: string;
+    instagram?: string;
+    youtube?: string;
   };
 }
 
@@ -49,5 +46,5 @@ export interface ContactFormData {
   name: string;
   email: string;
   message: string;
-  topic: string;
+  topic: 'General' | 'Business' | 'Collaboration';
 }
