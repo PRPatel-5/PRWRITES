@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -27,11 +29,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={placeholder}
-          className="w-full px-4 py-3 pl-12 pr-4 text-primary bg-secondary dark:bg-charcoal border border-slate/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+          className="w-full px-4 py-2 pl-10 pr-4 text-text-dark dark:text-text-light bg-card-light dark:bg-card-dark border border-primary-gold/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-gold focus:border-transparent"
         />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-4">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3">
           <svg
-            className="w-5 h-5 text-slate"
+            className="w-4 h-4 text-muted-gray"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
