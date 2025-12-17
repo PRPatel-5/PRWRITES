@@ -21,6 +21,8 @@ export interface Post {
     description?: string;
     keywords?: string[];
   };
+  externalUrl?: string;
+  source?: string;
 }
 
 export interface Category {

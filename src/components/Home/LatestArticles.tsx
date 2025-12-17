@@ -2,10 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import ArticleCard from '@/components/ui/ArticleCard';
 import Button from '@/components/ui/Button';
-import { mockArticles } from '@/data/articles';
+import { articles } from '@/data/articles';
 
 const LatestArticles: React.FC = () => {
-  const latestArticles = mockArticles.slice(0, 6);
+  const latestArticles = articles.slice(0, 6);
   const categories = ['All', 'Articles', 'Blogs', 'Tech', 'Gaming'];
 
   return (

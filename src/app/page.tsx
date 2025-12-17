@@ -1,7 +1,24 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { posts } from '@/data/posts';
+import { articles } from '@/data/articles';
+import { Metadata } from 'next';
+import { generatePageSEO } from '@/lib/seo';
+import { defaultMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  ...defaultMetadata(),
+  title: "PRWRITES — Home",
+  alternates: { canonical: "https://prwrites.vercel.app/" },
+  openGraph: {
+    ...defaultMetadata().openGraph,
+    url: "https://prwrites.vercel.app/",
+    images: [{ url: "https://prwrites.vercel.app/images/home-og.jpg", width: 1200, height: 630 }]
+  }
+};
 
 const featuredPosts = posts.filter(post => post.featured).slice(0, 3);
+const featuredArticles = articles.filter(article => article.featured).slice(0, 3);
 
 const categories = [
   {
@@ -100,8 +117,19 @@ export default function HomePage() {
 
             <div className="relative hidden md:block">
               <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-2xl">
+               <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-gold-500/20 via-transparent to-navy-500/20 z-10" />
-                <div className="w-full h-full bg-gradient-to-br from-navy-600 to-navy-800" />
+                <div className="w-full h-full bg-gradient-to-br from-navy-600 to-navy-800 flex flex-col items-center justify-center p-12 text-center">
+                  <div className="text-6xl mb-6">✍️</div>
+                  <h3 className="text-3xl font-bold text-white mb-4">We Write About</h3>
+                  <div className="text-4xl font-bold text-gold-400 h-12">
+                    Blog, Gaming, Storys
+                  </div>
+                  <p className="text-slate-300 mt-6 max-w-md">
+                    Stories that inspire, inform, and engage readers worldwide
+                  </p>
+                </div>
+              </div>
               </div>
               
               <div className="absolute -bottom-6 -left-6 glass-effect rounded-xl p-6 max-w-xs animate-float z-20">
@@ -197,9 +225,17 @@ export default function HomePage() {
                 className="premium-card overflow-hidden card-hover-effect group"
               >
                 <div className="relative h-48 overflow-hidden bg-gradient-to-br from-navy-500 to-navy-700">
+                  {post.image && (
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  )}
                   <div className="absolute top-4 left-4 z-10">
                     <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-semibold text-navy-600">
-                      {post.category}
+                      Blogs
                     </span>
                   </div>
                 </div>
@@ -223,6 +259,82 @@ export default function HomePage() {
                     <span className="text-sm text-slate-500 dark:text-slate-400">{post.author.name}</span>
                     <Link
                       href={`/blog/${post.slug}`}
+                      className="inline-flex items-center text-navy-600 font-semibold hover:text-gold-600 transition-colors"
+                    >
+                      Read More
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Articles */}
+      <section className="py-20 bg-gradient-to-b from-cream-100 to-white dark:from-slate-800 dark:to-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-end mb-12">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
+                Featured Articles
+              </h2>
+              <p className="text-xl text-slate-600 dark:text-slate-400">
+                In-depth insights and analysis
+              </p>
+            </div>
+            <Link 
+              href="/articles"
+              className="hidden md:block text-navy-600 font-semibold hover:text-gold-500 transition-colors"
+            >
+              View All →
+            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {featuredArticles.map((article) => (
+              <article
+                key={article.id}
+                className="premium-card overflow-hidden card-hover-effect group"
+              >
+                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-navy-500 to-navy-700">
+                  {article.image && (
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  )}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-semibold text-navy-600">
+                      Article
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="p-6 space-y-4">
+                  <div className="flex items-center space-x-4 text-sm text-slate-500">
+                    <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
+                    <span>•</span>
+                    <span>{article.readTime}</span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-navy-600 dark:text-slate-200 group-hover:text-gold-600 transition-colors">
+                    {article.title}
+                  </h3>
+                  
+                  <p className="text-slate-600 dark:text-slate-400 line-clamp-2">
+                    {article.excerpt}
+                  </p>
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-slate-200">
+                    <span className="text-sm text-slate-500 dark:text-slate-400">{article.author.name}</span>
+                    <Link
+                      href={`/articles/${article.slug}`}
                       className="inline-flex items-center text-navy-600 font-semibold hover:text-gold-600 transition-colors"
                     >
                       Read More
