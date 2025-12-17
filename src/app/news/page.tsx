@@ -1,45 +1,89 @@
 import Link from 'next/link';
+import type { Metadata } from "next";
+import { defaultMetadata } from "@/lib/seo";
+import { breakingNews, latestNews } from '@/data/news';
 
-const breakingNews = [
-  {
-    id: 1,
-    title: 'Major Tech Company Announces Groundbreaking AI Innovation',
-    excerpt: 'Revolutionary artificial intelligence system promises to transform multiple industries',
-    category: 'Tech',
-    date: '2 hours ago',
-  },
-  {
-    id: 2,
-    title: 'Global Gaming Conference Reveals Industry Trends',
-    excerpt: 'Industry leaders gather to discuss the future of interactive entertainment',
-    category: 'Gaming',
-    date: '5 hours ago',
-  },
-];
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  
+  // Combine all news items to search for the slug
+  const allNews = [...breakingNews, ...latestNews];
+  const news = allNews.find(item => item.id === slug);
 
-const latestNews = [
-  {
-    id: 3,
-    title: 'New Streaming Platform Launches with Exclusive Content',
-    excerpt: 'Entertainment giant enters the streaming wars with innovative features',
-    category: 'Entertainment',
-    date: '1 day ago',
+  if (!news) {
+     return {
+      title: "Latest News & Breaking Stories | PRWRITES",
+  description:
+    "Read breaking news, trending stories, politics, technology highlights, and global updates — all curated for you on PRWRITES.",
+  keywords: [
+    "latest news",
+    "breaking news",
+    "trending news",
+    "India news",
+    "world news",
+    "tech news",
+    "gaming news",
+    "PRWRITES news",
+  ],
+  alternates: {
+    canonical: "https://prwrites.vercel.app/news",
   },
-  {
-    id: 4,
-    title: 'Cybersecurity Alert: Major Data Breach Discovered',
-    excerpt: 'Security researchers uncover vulnerability affecting millions of users',
-    category: 'Security',
-    date: '1 day ago',
+  openGraph: {
+    title: "PRWRITES — Latest News & Breaking Headlines",
+    description:
+      "Stay updated with the latest headlines, politics, technology, gaming, entertainment, and international news.",
+    url: "https://prwrites.vercel.app/news",
+    type: "website",
+    images: [
+      {
+        url: "/images/news-og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "PRWRITES Latest News",
+      },
+    ],
   },
-  {
-    id: 5,
-    title: 'Space Exploration Milestone Achieved',
-    excerpt: 'Historic achievement marks new era in commercial space travel',
-    category: 'Science',
-    date: '2 days ago',
+  twitter: {
+    card: "summary_large_image",
+    title: "PRWRITES — Latest News & Breaking Headlines",
+    description:
+      "Stay updated with the latest headlines, politics, technology, gaming, entertainment, and international news.",
+    images: ["/images/news-og.jpg"],
   },
-];
+    };
+  }
+
+  const cleanTitle = `${news.title} | PRWRITES News`;
+  const cleanDescription = news.excerpt.substring(0, 160);
+
+  return {
+    title: cleanTitle,
+    description: cleanDescription,
+    alternates: {
+      canonical: `https://prwrites.vercel.app/news/${slug}`,
+    },
+    openGraph: {
+      title: cleanTitle,
+      description: cleanDescription,
+      url: `https://prwrites.vercel.app/news/${slug}`,
+      type: "article",
+      images: [
+        {
+          url: "/images/news-og.jpg",
+          width: 1200,
+          height: 630,
+          alt: news.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: cleanTitle,
+      description: cleanDescription,
+      images: ["/images/news-og.jpg"],
+    },
+  };
+}
 
 const categories = [
   { name: 'Technology', icon: '💻', count: 45 },
@@ -79,15 +123,17 @@ export default function NewsPage() {
           
           <div className="grid md:grid-cols-2 gap-8">
             {breakingNews.map((news) => (
-              <Link
+              <a
                 key={news.id}
-                href={`/blog/${news.id}`}
+                href={news.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all duration-300 border border-white/20"
               >
                 <p className="text-sm text-gold-300 mb-2">{news.date}</p>
                 <h3 className="text-2xl font-bold mb-3">{news.title}</h3>
                 <p className="text-slate-200">{news.excerpt}</p>
-              </Link>
+              </a>
             ))}
           </div>
         </div>
@@ -118,15 +164,17 @@ export default function NewsPage() {
                     
                     <p className="text-slate-600 dark:text-slate-400">{news.excerpt}</p>
                     
-                    <Link
-                      href={`/blog/${news.id}`}
+                    <a
+                      href={news.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center text-navy-600 dark:text-slate-300 font-semibold hover:text-gold-600 transition-colors"
                     >
                       Read Full Story
                       <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </article>

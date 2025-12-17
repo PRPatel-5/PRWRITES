@@ -2,10 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Post } from '@/types';
+import { Article } from '@/data/articles';
 import { cn } from '@/lib/utils';
 
 interface ArticleCardProps {
-  article: Post;
+  article: Post | Article;
   variant?: 'default' | 'featured' | 'compact';
   className?: string;
 }
@@ -50,8 +51,8 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
               className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute top-4 left-4">
-              <span className={cn('px-3 py-1 rounded-full text-xs font-medium', getCategoryColor(article.category))}>
-                {article.category}
+              <span className={cn('px-3 py-1 rounded-full text-xs font-medium', getCategoryColor('category' in article ? article.category : 'Article'))}>
+                {'category' in article ? article.category : 'Article'}
               </span>
             </div>
           </div>
@@ -99,8 +100,8 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
           <div className="absolute top-3 left-3">
-            <span className={cn('px-2 py-1 rounded-full text-xs font-medium', getCategoryColor(article.category))}>
-              {article.category}
+            <span className={cn('px-2 py-1 rounded-full text-xs font-medium', getCategoryColor('category' in article ? article.category : 'Article'))}>
+              {'category' in article ? article.category : 'Article'}
             </span>
           </div>
         </div>

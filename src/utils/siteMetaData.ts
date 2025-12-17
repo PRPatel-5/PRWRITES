@@ -15,8 +15,8 @@ interface SiteMetadata {
 
 const siteMetadata: SiteMetadata = {
   title: 'PRWRITES',
-  description: 'Your premier destination for blogs, long-form articles, gaming news, and general news. Discover engaging content across technology, gaming, and lifestyle.',
-  siteUrl: 'https://prwrites.com',
+  description: 'Your premier destination for expertly crafted content spanning gaming, technology, and breaking news. Discover quality articles, reviews, and insights from our expert writers.',
+  siteUrl: 'https://prwrites.vercel.app',
   socialBanner: '/social-banner.png',
   author: 'PRWRITES Team',
   email: 'hello@prwrites.com',

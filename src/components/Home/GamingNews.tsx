@@ -2,11 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import ArticleCard from '@/components/ui/ArticleCard';
 import Button from '@/components/ui/Button';
-import { mockArticles } from '@/data/articles';
+import { articles } from '@/data/articles';
 
 const GamingNews: React.FC = () => {
-  const gamingArticles = mockArticles.filter(article => 
-    article.category === 'Gaming' || article.tags.includes('Gaming')
+  const gamingArticles = articles.filter(article => 
+    article.tags.includes('Gaming')
   );
 
   return (

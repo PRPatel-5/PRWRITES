@@ -1,25 +1,30 @@
 import Link from 'next/link';
-import Button from '@/components/ui/Button';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Page Not Found | PRWRITES',
+  description: 'The page you are looking for could not be found.',
+  robots: 'noindex,nofollow',
+};
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-cream dark:bg-charcoal">
-      <div className="text-center px-4">
-        <h1 className="text-8xl md:text-9xl font-bold text-primary dark:text-secondary mb-4">
-          404
-        </h1>
-        <h2 className="text-2xl md:text-3xl font-bold text-primary dark:text-secondary mb-6">
-          Page Not Found
-        </h2>
-        <p className="text-slate text-lg mb-8 max-w-md mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-cream-100 to-white dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
+      <div className="max-w-md mx-auto text-center px-4">
+        <div className="text-8xl mb-8">🔍</div>
+        <h1 className="text-4xl font-bold gradient-text mb-4">Page Not Found</h1>
+        <p className="text-slate-600 dark:text-slate-400 mb-8">
           The page you're looking for doesn't exist or has been moved.
         </p>
-        <Link href="/">
-          <Button size="lg">
-            Go Back Home
-          </Button>
-        </Link>
+        <div className="space-y-4">
+          <Link href="/" className="btn-premium block">
+            Go Home
+          </Link>
+          <Link href="/blog" className="block text-navy-600 hover:text-gold-600 transition-colors">
+            Browse Articles
+          </Link>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }

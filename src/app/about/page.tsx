@@ -1,152 +1,179 @@
-import Link from 'next/link';
+import type { Metadata } from 'next';
+import { defaultMetadata } from '@/lib/seo';
 
-const values = [
-  {
-    icon: '🎯',
-    title: 'Quality First',
-    description: 'Every piece of content is crafted with care and attention to detail',
+export const metadata: Metadata = {
+  ...defaultMetadata(),
+  title: 'About PRWRITES - Your Premier Blog & News Platform',
+  description: 'Learn about PRWRITES mission, our expert team, and why we created the ultimate destination for blogs, gaming news, technology insights, and breaking stories.',
+  keywords: ['about PRWRITES', 'blog platform', 'news website', 'content creators', 'technology blog'],
+  alternates: {
+    canonical: 'https://prwrites.vercel.app/about',
   },
-  {
-    icon: '🚀',
-    title: 'Innovation',
-    description: 'We stay ahead of trends to bring you cutting-edge insights',
+  openGraph: {
+    title: 'About PRWRITES - Your Premier Blog & News Platform',
+    description: 'Learn about PRWRITES mission, our expert team, and why we created the ultimate destination for blogs, gaming news, technology insights, and breaking stories.',
+    url: 'https://prwrites.vercel.app/about',
+    type: 'website',
   },
-  {
-    icon: '🤝',
-    title: 'Community',
-    description: 'Building connections through shared stories and experiences',
-  },
-  {
-    icon: '💎',
-    title: 'Authenticity',
-    description: 'Honest, transparent content you can trust',
-  },
-];
-
-const team = [
-  { name: 'John Doe', role: 'Founder & CEO', specialty: 'Gaming & Tech' },
-  { name: 'Jane Smith', role: 'Editor-in-Chief', specialty: 'Content Strategy' },
-  { name: 'Mike Johnson', role: 'Senior Writer', specialty: 'AI & Innovation' },
-  { name: 'Sarah Williams', role: 'News Editor', specialty: 'Breaking News' },
-];
+};
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section className="hero-gradient py-20">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-navy-600 to-navy-800 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             About <span className="text-gold-400">PRWRITES</span>
           </h1>
-          <p className="text-xl text-slate-200 max-w-3xl mx-auto">
-            Where storytelling meets innovation. Crafting narratives that inform, inspire, and engage.
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            Your premier destination for expert content, breaking news, and insightful analysis across technology, gaming, and beyond.
           </p>
         </div>
       </section>
 
-      {/* Story Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-6">
-            <h2 className="text-4xl font-bold gradient-text">Our Story</h2>
-            <div className="space-y-4 text-lg text-slate-600 dark:text-slate-400">
-              <p>
-                Founded in 2024, PRWRITES began with a simple mission: to create a platform where 
-                quality content meets passionate readers. We believe that every story deserves to 
-                be told with care, creativity, and authenticity.
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Mission */}
+        <section className="mb-16">
+          <h2 className="text-4xl font-bold text-navy-600 mb-8 text-center">Our Mission</h2>
+          <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+            <p className="text-lg text-slate-700 leading-relaxed mb-6">
+              At PRWRITES, we believe in the power of quality content to inform, educate, and inspire. Our mission is to deliver expertly crafted articles, breaking news, and in-depth analysis that helps our readers stay ahead in an ever-evolving digital world.
+            </p>
+            <p className="text-lg text-slate-700 leading-relaxed">
+              We are committed to providing accurate, timely, and engaging content that serves our community of tech enthusiasts, gamers, professionals, and curious minds seeking reliable information.
+            </p>
+          </div>
+        </section>
+
+        {/* Why We Created PRWRITES */}
+        <section className="mb-16">
+          <h2 className="text-4xl font-bold text-navy-600 mb-8 text-center">Why We Created PRWRITES</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
+              <div className="text-4xl mb-4">🎯</div>
+              <h3 className="text-xl font-bold text-navy-600 mb-3">Quality Over Quantity</h3>
+              <p className="text-slate-700">
+                In a world flooded with information, we focus on delivering high-quality, well-researched content that truly adds value to our readers' lives.
               </p>
-              <p>
-                Today, we're proud to serve thousands of readers worldwide with expertly crafted 
-                articles on gaming, technology, and breaking news. Our team of dedicated writers 
-                and editors work tirelessly to bring you content that matters.
+            </div>
+            <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
+              <div className="text-4xl mb-4">🚀</div>
+              <h3 className="text-xl font-bold text-navy-600 mb-3">Innovation Focus</h3>
+              <p className="text-slate-700">
+                We stay at the forefront of technology trends, bringing you the latest insights in AI, gaming, finance, and digital innovation.
               </p>
-              <p>
-                From in-depth gaming reviews to cutting-edge tech analysis, from breaking news to 
-                thought-provoking articles—we deliver content that informs, entertains, and inspires.
+            </div>
+            <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
+              <div className="text-4xl mb-4">🌍</div>
+              <h3 className="text-xl font-bold text-navy-600 mb-3">Global Perspective</h3>
+              <p className="text-slate-700">
+                Our content covers both local and international perspectives, ensuring our readers get a comprehensive view of current events and trends.
+              </p>
+            </div>
+            <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
+              <div className="text-4xl mb-4">🤝</div>
+              <h3 className="text-xl font-bold text-navy-600 mb-3">Community First</h3>
+              <p className="text-slate-700">
+                We build content with our community in mind, addressing real questions and providing practical solutions for everyday challenges.
               </p>
             </div>
           </div>
-          
-          <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-navy-500 via-navy-600 to-gold-500 p-1">
-              <div className="w-full h-full bg-white dark:bg-slate-800 rounded-xl flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="text-7xl mb-4">✍️</div>
-                  <h3 className="text-3xl font-bold gradient-text mb-2">500+</h3>
-                  <p className="text-slate-600 dark:text-slate-400">Articles Published</p>
-                </div>
-              </div>
+        </section>
+
+        {/* Our Expertise */}
+        <section className="mb-16">
+          <h2 className="text-4xl font-bold text-navy-600 mb-8 text-center">Our Expertise</h2>
+          <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+            <p className="text-lg text-slate-700 leading-relaxed mb-6">
+              The PRWRITES team consists of experienced writers, researchers, and industry experts with deep knowledge across multiple domains:
+            </p>
+            <ul className="space-y-4 text-slate-700">
+              <li className="flex items-start">
+                <span className="text-gold-500 mr-3">✓</span>
+                <span><strong>Technology & AI:</strong> Covering the latest in artificial intelligence, software development, and tech innovation</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-gold-500 mr-3">✓</span>
+                <span><strong>Gaming Industry:</strong> Expert analysis of gaming trends, reviews, and industry developments</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-gold-500 mr-3">✓</span>
+                <span><strong>Finance & Business:</strong> Practical advice on personal finance, investment strategies, and business insights</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-gold-500 mr-3">✓</span>
+                <span><strong>Breaking News:</strong> Timely coverage of current events with accurate reporting and analysis</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-gold-500 mr-3">✓</span>
+                <span><strong>Educational Content:</strong> Guides, tutorials, and resources for students and professionals</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Content Categories */}
+        <section className="mb-16">
+          <h2 className="text-4xl font-bold text-navy-600 mb-8 text-center">Content Categories</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl p-6 text-white">
+              <div className="text-3xl mb-3">🎮</div>
+              <h3 className="text-xl font-bold mb-2">Gaming</h3>
+              <p className="text-purple-100">Latest gaming news, reviews, industry trends, and gaming technology insights.</p>
+            </div>
+            <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl p-6 text-white">
+              <div className="text-3xl mb-3">💻</div>
+              <h3 className="text-xl font-bold mb-2">Technology</h3>
+              <p className="text-blue-100">AI developments, software reviews, tech tutorials, and innovation coverage.</p>
+            </div>
+            <div className="bg-gradient-to-br from-green-500 to-green-700 rounded-xl p-6 text-white">
+              <div className="text-3xl mb-3">📰</div>
+              <h3 className="text-xl font-bold mb-2">News</h3>
+              <p className="text-green-100">Breaking news, current events, and timely analysis of global developments.</p>
+            </div>
+            <div className="bg-gradient-to-br from-orange-500 to-orange-700 rounded-xl p-6 text-white">
+              <div className="text-3xl mb-3">📝</div>
+              <h3 className="text-xl font-bold mb-2">Articles</h3>
+              <p className="text-orange-100">In-depth articles, guides, and educational content across various topics.</p>
+            </div>
+            <div className="bg-gradient-to-br from-gold-500 to-yellow-600 rounded-xl p-6 text-white">
+              <div className="text-3xl mb-3">💰</div>
+              <h3 className="text-xl font-bold mb-2">Finance</h3>
+              <p className="text-yellow-100">Personal finance tips, investment strategies, and money management advice.</p>
+            </div>
+            <div className="bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-xl p-6 text-white">
+              <div className="text-3xl mb-3">🎓</div>
+              <h3 className="text-xl font-bold mb-2">Education</h3>
+              <p className="text-indigo-100">Learning resources, study guides, and educational tools for students.</p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Values */}
-      <section className="bg-gradient-to-b from-cream-100 to-white dark:from-slate-800 dark:to-slate-900 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
-              Our Values
-            </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-400">
-              The principles that guide everything we do
+        {/* Call to Action */}
+        <section className="text-center">
+          <div className="bg-gradient-to-r from-navy-600 to-navy-800 rounded-xl p-8 text-white">
+            <h2 className="text-3xl font-bold mb-4">Join Our Community</h2>
+            <p className="text-xl text-slate-300 mb-6">
+              Stay updated with the latest content and be part of our growing community of informed readers.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="/blog"
+                className="px-6 py-3 bg-gold-500 text-navy-900 rounded-lg font-bold hover:bg-gold-400 transition-colors"
+              >
+                Explore Our Blog
+              </a>
+              <a
+                href="/contact"
+                className="px-6 py-3 border-2 border-white text-white rounded-lg font-bold hover:bg-white hover:text-navy-800 transition-colors"
+              >
+                Get In Touch
+              </a>
+            </div>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value) => (
-              <div key={value.title} className="premium-card p-8 text-center card-hover-effect">
-                <div className="text-5xl mb-4">{value.icon}</div>
-                <h3 className="text-xl font-bold text-navy-600 dark:text-slate-200 mb-3">
-                  {value.title}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-400">
-                  {value.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="bg-gradient-to-b from-white to-cream-100 dark:from-slate-900 dark:to-slate-800 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold gradient-text mb-4">Meet Our Team</h2>
-            <p className="text-xl text-slate-600 dark:text-slate-400">
-              The passionate people behind PRWRITES
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member) => (
-              <div key={member.name} className="premium-card p-6 text-center card-hover-effect">
-                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-navy-500 to-gold-500" />
-                <h3 className="text-xl font-bold text-navy-600 dark:text-slate-200 mb-1">{member.name}</h3>
-                <p className="text-gold-600 font-semibold mb-2">{member.role}</p>
-                <p className="text-slate-600 dark:text-slate-400 text-sm">{member.specialty}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 animated-bg">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Join Our Journey
-          </h2>
-          <p className="text-xl text-slate-200 mb-8">
-            Be part of a community that values quality content and meaningful connections
-          </p>
-          <Link href="/contact" className="btn-gold shine-effect text-lg px-8 py-4">
-            Get in Touch
-          </Link>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
